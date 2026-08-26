@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <h1>What is your name?</h1>
+
+    <input type="text"
+        id="nameInput"
+        placeholder="Enter your name"
+    />
+
+    <button onclick="addTask()">Enter Name</button>
+
+    <div id="nameDisplay"></div>
+
+    <script>
+        function getTaskText() {
+            const input = document.getElementById('nameInput');
+            const text = input.value.trim();
+
+            console.log("Hello there, " + input.value + "! Welcome to Event Driven Programming.");
+            return text;
+        }
+
+        function addTask() {
+            const taskText = getTaskText();
+
+            document.getElementById('nameDisplay').textContent =
+                "Hello there, " + taskText;
+        }
+    </script>
+
+</body>
+</html>
