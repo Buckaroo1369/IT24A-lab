@@ -3,103 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Maps</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
 </head>
-
-
+<style>
+    #map {
+        height: 500px;
+    }
+</style>
 <body>
+    <h1>Simple Map </h1>
+    <div id="map"></div>
     
-    <h1>Todo List</h1>
-    <input type="text"
-    id="taskInput"
-    placeholder="Add a task"
-    />
-    <button onclick="addTask()">Add Task</button>
-    <ul id="taskList">Your tasks goes here...</ul>
-    <script>
-        function getTaskText() {
-            const input = document.getElementById('taskInput');
-            const text = input.value.trim();
-
-            console.log("The input value is:" + input.value);
-            return text;
-        }
-        function addTask() {
-            const taskText = getTaskText();
-            addTaskItem(taskText);
-        }
-        function addTaskItem(taskText) {
-            const li = document.createElement('li');
-            const taskSpan = document.createElement('span');
-            taskSpan.textContent = taskText;
-            li.appendChild(taskSpan);
-
-            document.getElementById('taskList').appendChild(li);
-
-            //Call createDooneButton() function
-            const doneBtn = createDoneButton(li);
-            li.appendChild(doneBtn);
-
-            //call createEditButton() function
-            const editBtn = createEditButton(li, taskSpan);
-            li.appendChild(editBtn);
-
-            //call createDeleteButton() function
-            const deleteBtn = createDeleteButton(li);
-            li.appendChild(deleteBtn);
-
-        }
-        function createDoneButton(li){
-            const doneBtn = document.createElement("button");
-            doneBtn.textContent = "Done";
-
-            doneBtn.onclick = () => {
-                console.log(li);
-                li.classList.add("done");
-                const buttons = li.querySelectorAll("button");
-
-                buttons.forEach(btn => {
-                    btn.disabled=true;
-                });
-                console.log("Task Completed", li.textContent, Date());
-            }
-            return doneBtn;
-        }
-        function createEditButton(li, taskSpan){
-            const editBtn = document.createElement("button");
-            editBtn.textContent = "Edit";
-            editBtn.style.marginLeft = "8px";
-            editBtn.onclick = () => handleEditClick(li);
-            return editBtn;
-        }
-
-        function handleEditClick(li){
-            const currentText = li.firstChild.textContent.trim();
-            const newText = prompt("Edit your task", currentText);
-
-            if(newText !== null && newText.trim() !== ""){
-                li.firstChild.textContent = newText.trim();
-                alert("Updated Task");
-            } else {
-                alert("No changes made");
-            }
-        }
-
-        function createDeleteButton(li){
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete";
-            deleteBtn.style.marginLeft = "8px";
-            deleteBtn.onclick = () => handleDeleteClick(li);
-            return deleteBtn;
-               
-        }
-
-        function handleDeleteClick(li){
-            li.remove();
-            alert("Task Deleted");
-        }
-
-    </script>
-
 </body>
+<script>
+
+    function initMap() {
+        const map = L.map('map').setView([8.360,124.868], 17);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+    }
+
+    initMap();
+
+    
+
+</script>
 </html>
